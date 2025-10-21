@@ -10,11 +10,9 @@ public class GamePlay extends JFrame implements ActionListener {
     private static GamePlay instance = null;
 
     public static void getInstance(Character currentCharacter) {
-        synchronized (GamePlay.class) {
             if (instance == null) {
                 instance = new GamePlay(currentCharacter);
             }
-        }
     }
 
     private Character currentCharacter;
@@ -250,3 +248,4 @@ public class GamePlay extends JFrame implements ActionListener {
         updateGrid();
     }
 }
+
