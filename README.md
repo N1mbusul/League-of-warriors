@@ -4,8 +4,81 @@
 #### Manda Stefan-Edurad 322CC
 
     Avem jocul League of Warriors care implementeaza un joc de aventura bazat pe 
-    text si jucat in terminal.
-    Acum implementam cerintele noi pt design patterns si interfata grafica.
+    text si jucat in terminal la inceput si acum foloseste libraria grafica swing.
+
+### Clase implementate
+    Clasa Account are declarat in interior clasa statica Information ca contine 
+    credentialele, nume, tara so jocuri favorite. Pe langa aceasta mai are getere 
+    pentru informatie, lista de caractere si nr jocuri jucate care sunt folosite 
+    de alte clase.
+
+    Clasa Credentials are email-ul si parola fiecarui user si am facut doar get-uri 
+    pt ele.
+
+    Clasa Entity implementeaza interfata Battle si are viata curenta si maxima, mana 
+    curenta si maxima cat si rezistentele player-ului si ale inamicului. Functiile de 
+    regen mana si viata sunt facute tot aici. Aici e implementata functia de useAbility 
+    si dupa modificata in restul claselor. Aici mai am si functiile de dodge si 
+    criticalHit care sunt random.  
+
+    Clasa Character care extinde clasa Entity are numele caracterului, nivelul si xp ul 
+    lui, tipul de clasa, si caracteristicile lui, cat si abilitatile. Pe langa get-uri 
+    si set-uri am adaugat functia de initializare a statusurilor in functie de clasa 
+    caracterului. Dupa am facut functia de generare a abilitatilor si cea de basic 
+    attack. Am dat override la functia useAbility pentru a implementa damage ul ei. 
+    Pe langa asta mai functiile lgate de nivel: levelUp care verifica daca a depasit 
+    threshhold ul pentru a da level up si a primi atribute si functia levelUpUndercover 
+    care da level la caracter inainte de a putea juca cu el in functie de nivelul pe care 
+    il are in accounts.json . Functia receiveDamage e implementata la fiecare subclasa 
+    separat. Clasa Warrior este rezistenta la foc, clasa Mage la gheata si clasa Rogue 
+    la pamant.
+
+    Clasa Enemy este la fel ca si clasa Character, doar ca nu are atributele strenght, 
+    charisma si dexterity. Dar are totusi abilitati ca si player ul dar sunt selectate 
+    random in timpul luptei. De asemenea i-am facut o functie sa-i puna nume random la inamic.
+
+    Enum ul CellEntityType are tipul de celule : PLAYER, VOID, ENEMY,SANCTUAR, PORTAL si VISITED.
+
+    Clasa Cell are ca informatii coordonatele x si y ale celulei, un boolean daca este vizitata 
+    sau nu si tipEntitate. fiecare are cate un getter si am mai adaugat un setEntityType pt clasa 
+    Grid.
+
+    Clasa Grid este cea in care generez harta si fac functii pentru cazurile in care player ul 
+    pica pe anumite celule. Mai intai generez harta cu dimensiuni random intre 4x4 si 10x10. 
+    Dupa initializez toata harta cu Void si dupa plasez random portalul, sanctuarele si inamicii 
+    si ma folosesc de constructorul privat sa inapoiez grid ul. In paralel mai am functia de 
+    generat harta hardcodata pt test. Functia placeEntity cauta celule Void pe tabla si le 
+    inlocuieste cu tipul de celula cerut si face asta pana sunt toate plasate pe harta. Functia 
+    placeCharacter cauta o celula random VOID pe care pune player ul salvand ui pozitia pe harta. 
+    La fel functia placeCharacterAt e pentru testele hardcodate. Functia diplayMap arata harta pe 
+    care apare doar jucatorul si celulele nevizitate, lasand in urma V de la VISITED. Functia pt 
+    harta de test arata unde sunt toate tipurile diferite de celule pt usurinta si testare. 
+    Functiile de miscare moveNorth, moveSouth, moveEast si moveWest mai intai testeaza daca este 
+    posibil sa mai mearga in acea directie caracterul. Daca nu ii da mesaj ca nu poate, dar in caz 
+    contrar face celula curenta cea din directia selectata si lasa celula din urma vizitata. 
+    Functia de handleSanctuary regenereaza o parte din viata si mana si nu depaseste viata si mana 
+    maxima ale caracterului. Functia handlePortal ofera player-ului xp = nr jocuri jucate * 5, 
+    deoarece nu am inteles daca trebuie asta sau nivelul actual al player ului dar ambele s ok i 
+    guess. Dupa aceea incrementez nr jocuri jucate, verific daca a dat level up si resetez viata si 
+    mana. Dupa sterg pozitia player ului de pe vechea harta, generez si setez o noua harta si dupa 
+    pun player ul pe noua harta. Functia de handleBattle reseteaza abilitatile player ului in caz 
+    ca a mai fost inainte intr o batalie, dupa initializeaza inamicul. In battle loop player ul are 
+    prima alegere si daca selecteaza orice in afara de 1 sau 2 il readuce la acelasi ecran pana 
+    selecteaza basic attack sau ability. De asemenea daca i se termina abilitatile, ii dispare 
+    optiunea 2, dar daca o apasa ii spune ca nu are abilitati si poate continua doar daca fol 
+    basic attack. In ecranul cu abilitati la poate selecta doar numarul unei abilitati, iar daca 
+    selecteaza un numar inexistent il mai pune sa aleaga odata. De asemenea am adugat optiunea sa 
+    si schimbe optiunea daca nu vrea sa fol o abilitate ci un basic attack daca alege 0. Dupa 
+    verific daca a murit inamic, iar daca nu a murit acesta alege random intre 1 si 2 dupa alege 
+    random intre abilitati daca asa a picat sau basic attack daca a ramas fara mana sau abilitati. 
+    Dupa verific daca a murit player ul si daca da il scot din joc , iar daca nu continua lupta si 
+    asfisez statusurile actualizate.
+
+    Clasa Game se foloseste de clasa primita in arhiva de citire a fisierului JSON. Prima data 
+    user ul trebuie sa se logheze si nu poate ajunge la joc pana nu face asta. Mai intai trebuie 
+    un email valid ca sa poata baga parola si abia dupa ce amandoua sunt corecte, user ul alege 
+    un caracter facut deja pe acel cont. Abia dupa poate incepe jocul unde se genereaza o harta 
+    si player ul se misca pe aceasta pentru a gasi portalul.
 
 ### Design Patterns
 
