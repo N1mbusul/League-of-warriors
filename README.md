@@ -1,5 +1,5 @@
 
-# Tema 2 POO
+# League of Warriors
 
 #### Manda Stefan-Edurad 322CC
 
