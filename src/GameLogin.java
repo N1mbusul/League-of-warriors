@@ -9,12 +9,9 @@ public class GameLogin extends JFrame implements ActionListener{
     // Singleton Pattern
     private static GameLogin joc = null;
     public static GameLogin getInstance(){
-        // folosesc clasa pentru sincronizare
-        synchronized (GameLogin.class) {
             if (joc == null) {
                 joc = new GameLogin();
             }
-        }
         return joc;
     }
 
@@ -147,4 +144,5 @@ public class GameLogin extends JFrame implements ActionListener{
     }
 
 }
+
 
