@@ -9,19 +9,15 @@ public class  GameBattle extends JFrame implements ActionListener {
     // Singleton pattern
     private static GameBattle battle = null;
     public static GameBattle getInstance(Character currentCharacter) {
-        synchronized (GameBattle.class) {
             if (battle == null) {
                 battle = new GameBattle(currentCharacter);
             }
-        }
         return battle;
     }
 
     // resetare battle
     public static void resetBattle() {
-        synchronized (GameBattle.class) {
             battle = null;
-        }
     }
 
     private Character currentCharacter;
@@ -425,4 +421,5 @@ class AbilitySelect extends JFrame {
         setVisible(true);
     }
 }
+
 
