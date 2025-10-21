@@ -10,11 +10,9 @@ public class GameCharacterSelection extends JFrame implements ActionListener {
     private static GameCharacterSelection joc = null;
 
     public static GameCharacterSelection getInstance(Account currentAccount) {
-        synchronized (GameCharacterSelection.class) {
             if (joc == null) {
                 joc = new GameCharacterSelection(currentAccount);
             }
-        }
         return joc;
     }
 
@@ -153,3 +151,4 @@ public class GameCharacterSelection extends JFrame implements ActionListener {
         setResizable(false);
     }
 }
+
